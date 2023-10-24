@@ -1,0 +1,69 @@
+name: XPManager
+version: "${version}"
+main: net.earthmc.xpmanager.XPManager
+api-version: "1.19"
+prefix: XPManager
+authors: [Fruitloopins]
+description: XP bottle management plugin
+website: https://earthmc.net
+folia-supported: true
+
+commands:
+  bottle:
+    description: "Create XP bottles"
+    usage: "/bottle {convert/get/store} {int} {int}"
+    permission: "xpmanager.command.bottle"
+    aliases:
+      - "b"
+      - "xpm"
+  bottleadmin:
+    description: "Admin command to create XP bottles"
+    usage: "/bottle {get/store} {int} {int}"
+    permission: "xpmanager.command.bottleadmin"
+    aliases:
+      - "ba"
+      - "xpma"
+
+permissions:
+  xpmanager.command.bottle:
+    description: "Grants permission to use the bottle command"
+    default: true
+
+  xpmanager.command.bottle.*:
+    description: "Grants permission to all bottle command methods"
+    default: true
+    children:
+      xpmanager.command.bottle.convert: true
+      xpmanager.command.bottle.get: true
+      xpmanager.command.bottle.store: true
+
+  xpmanager.command.bottle.convert:
+    description: "Grants permission to use the bottle convert command method"
+    default: true
+
+  xpmanager.command.bottle.get:
+    description: "Grants permission to use the bottle get command method"
+    default: true
+
+  xpmanager.command.bottle.store:
+    description: "Grants permission to use the bottle store command method"
+    default: true
+
+  xpmanager.command.bottleadmin:
+    description: "Grants permission to use the bottleadmin command"
+    default: op
+
+  xpmanager.command.bottleadmin.*:
+    description: "Grants permission to all bottleadmin command methods"
+    default: op
+    children:
+      xpmanager.command.bottleadmin.get: true
+      xpmanager.command.bottleadmin.store: true
+
+  xpmanager.command.bottleadmin.get:
+    description: "Grants permission to use the bottleadmin get command method"
+    default: op
+
+  xpmanager.command.bottleadmin.store:
+    description: "Grants permission to use the bottleadmin store command method"
+    default: op
