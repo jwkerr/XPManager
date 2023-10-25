@@ -17,7 +17,7 @@ public class BottleGet {
 
         int quantity;
         if (args[1].equals("max") && !isAdmin) {
-            quantity = (int) Math.floor(ExperienceUtil.getExp(player) / 10.0);
+            quantity = (int) Math.floor(ExperienceUtil.getTotalXP(player) / 10.0);
         } else {
             try {
                 quantity = Integer.parseInt(args[1]);
@@ -38,13 +38,13 @@ public class BottleGet {
         }
 
         int xpAmount = quantity * 10;
-        int currentXP = ExperienceUtil.getExp(player);
+        int currentXP = ExperienceUtil.getTotalXP(player);
         if (xpAmount > currentXP) {
             XPManagerMessaging.sendErrorMessage(player, "You do not have enough experience");
             return;
         }
 
-        ExperienceUtil.changeExp(player, -xpAmount);
+        ExperienceUtil.changeXP(player, -xpAmount);
 
         givePlayerStandardBottleQuantity(player, quantity);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + quantity + " bottles");

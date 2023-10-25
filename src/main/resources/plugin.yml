@@ -16,6 +16,7 @@ commands:
     aliases:
       - "b"
       - "xpm"
+
   bottleadmin:
     description: "Admin command to create XP bottles"
     usage: "/bottle {get/store} {int} {int}"
