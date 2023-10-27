@@ -39,7 +39,7 @@ public class BottleGet {
 
         int xpAmount = quantity * 10;
         int currentXP = ExperienceUtil.getTotalXP(player);
-        if (xpAmount > currentXP) {
+        if (xpAmount > currentXP || xpAmount <= 0) {
             XPManagerMessaging.sendErrorMessage(player, "You do not have enough experience");
             return;
         }
