@@ -73,6 +73,8 @@ public class BottleStore {
 
         if (isAdmin) {
             givePlayerStoreBottleQuantity(player, amount, quantity);
+
+            XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + (amount * quantity) + " XP");
             return;
         }
 

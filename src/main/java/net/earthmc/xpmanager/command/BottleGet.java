@@ -34,6 +34,8 @@ public class BottleGet {
 
         if (isAdmin) {
             givePlayerStandardBottleQuantity(player, quantity);
+
+            XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + quantity + " bottles");
             return;
         }
 
