@@ -1,6 +1,5 @@
 package net.earthmc.xpmanager.command;
 
-import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.entity.Player;
