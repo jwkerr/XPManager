@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BottleAdminCommand implements TabExecutor {
@@ -53,20 +52,20 @@ public class BottleAdminCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         switch (args.length) {
             case 1:
-                return Arrays.asList("get", "store");
+                return List.of("get", "store");
 
             case 2:
                 if (args[0].equals("get")) {
-                    return Collections.singletonList("{quantity}");
+                    return List.of("{quantity}");
                 }
 
                 if (args[0].equals("store")) {
-                    return Collections.singletonList("{amount}");
+                    return List.of("{amount}");
                 }
 
             case 3:
                 if (args[0].equals("store")) {
-                    return Collections.singletonList("{quantity}");
+                    return List.of("{quantity}");
                 }
         }
 

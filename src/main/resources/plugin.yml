@@ -37,6 +37,7 @@ permissions:
       xpmanager.command.bottle.convert: true
       xpmanager.command.bottle.get: true
       xpmanager.command.bottle.store: true
+      xpmanager.command.bottle.until: true
 
   xpmanager.command.bottle.convert:
     description: "Grants permission to use the bottle convert command method"
@@ -48,6 +49,10 @@ permissions:
 
   xpmanager.command.bottle.store:
     description: "Grants permission to use the bottle store command method"
+    default: true
+
+  xpmanager.command.bottle.until:
+    description: "Grants permission to use the bottle until command method"
     default: true
 
   xpmanager.command.bottleadmin:

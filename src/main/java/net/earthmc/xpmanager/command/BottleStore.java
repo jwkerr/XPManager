@@ -24,9 +24,11 @@ public class BottleStore {
             return;
         }
 
+        int currentXP = ExperienceUtil.getTotalXP(player);
+
         int amount;
         if (args[1].equals("max") && !isAdmin) {
-            amount = ExperienceUtil.getTotalXP(player);
+            amount = currentXP;
         } else {
             try {
                 amount = Integer.parseInt(args[1]);
@@ -36,31 +38,46 @@ public class BottleStore {
             }
         }
 
-        Integer quantity = null;
-        if (args.length > 2) {
-            try {
-                quantity = Integer.parseInt(args[2]);
-            } catch (NumberFormatException e) {
-                XPManagerMessaging.sendErrorMessage(player, "Specified bottle quantity is invalid");
-                return;
-            }
-        }
-
         if (amount < 1) {
             XPManagerMessaging.sendErrorMessage(player, "Specified XP amount must be greater than 0");
             return;
         }
 
-        if (quantity == null)
+        if (!isAdmin && amount > currentXP) {
+            XPManagerMessaging.sendErrorMessage(player, "Specified XP amount must be less than or equal to your current XP");
+            return;
+        }
+
+        Integer quantity = null;
+        if (args.length > 2) {
+            if (args[2].equals("max") && !isAdmin) {
+                quantity = currentXP / amount;
+            } else {
+                try {
+                    quantity = Integer.parseInt(args[2]);
+
+                    if (quantity < 1) {
+                        XPManagerMessaging.sendErrorMessage(player, "Specified bottle quantity must be greater than 0");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    XPManagerMessaging.sendErrorMessage(player, "Specified bottle quantity is invalid");
+                    return;
+                }
+            }
+        }
+
+        if (quantity == null || quantity < 1) {
             quantity = 1;
+        }
 
         if (isAdmin) {
             givePlayerStoreBottleQuantity(player, amount, quantity);
             return;
         }
 
-        int currentXP = ExperienceUtil.getTotalXP(player);
-        if (amount * quantity > currentXP) {
+        int totalXP = amount * quantity;
+        if (totalXP > currentXP || totalXP <= 0) { // Catch integer overflows that may occur from setting extremely high quantities
             XPManagerMessaging.sendErrorMessage(player, "You do not have enough experience");
             return;
         }

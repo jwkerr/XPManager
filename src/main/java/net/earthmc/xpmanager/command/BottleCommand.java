@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BottleCommand implements TabExecutor {
@@ -50,8 +49,16 @@ public class BottleCommand implements TabExecutor {
 
                 BottleStore.parseBottleStore(player, args, false);
                 break;
+            case "until":
+                if (!player.hasPermission("xpmanager.command.bottle.until")) {
+                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                    return true;
+                }
+
+                BottleUntil.parseBottleUntil(player, args);
+                break;
             default:
-                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/store}");
+                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/store/until}");
         }
 
         return true;
@@ -61,20 +68,24 @@ public class BottleCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         switch (args.length) {
             case 1:
-                return Arrays.asList("convert", "get", "store");
+                return List.of("convert", "get", "store", "until");
 
             case 2:
                 if (args[0].equals("get")) {
-                    return Arrays.asList("max", "{quantity}");
+                    return List.of("max", "{quantity}");
                 }
 
                 if (args[0].equals("store")) {
-                    return Arrays.asList("max", "{amount}");
+                    return List.of("max", "{amount}");
+                }
+
+                if (args[0].equals("until")) {
+                    return List.of("{level}");
                 }
 
             case 3:
                 if (args[0].equals("store")) {
-                    return Collections.singletonList("{quantity}");
+                    return List.of("max", "{quantity}");
                 }
         }
 
