@@ -1,7 +1,7 @@
 package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
-import net.earthmc.xpmanager.util.InventoryUtil;
+import net.earthmc.xpmanager.util.BottleUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +18,7 @@ public class BottleConvert {
                 continue;
             }
 
-            if (itemStack.getType().equals(Material.EXPERIENCE_BOTTLE) && !InventoryUtil.isItemStoreBottle(itemStack)) {
+            if (itemStack.getType().equals(Material.EXPERIENCE_BOTTLE) && !BottleUtil.isItemStoreBottle(itemStack)) {
                 numBottles += itemStack.getAmount();
                 inventory.setItem(i, null);
             }

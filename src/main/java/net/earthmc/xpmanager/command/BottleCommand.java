@@ -40,6 +40,14 @@ public class BottleCommand implements TabExecutor {
 
                 BottleGet.parseBottleGet(player, args, false);
                 break;
+            case "stats":
+                if (!player.hasPermission("xpmanager.command.bottle.stats")) {
+                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                    return true;
+                }
+
+                BottleStats.parseBottleStats(player);
+                break;
             case "store":
                 if (!player.hasPermission("xpmanager.command.bottle.store")) {
                     XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
@@ -47,6 +55,14 @@ public class BottleCommand implements TabExecutor {
                 }
 
                 BottleStore.parseBottleStore(player, args, false);
+                break;
+            case "toggle":
+                if (!player.hasPermission("xpmanager.command.bottle.toggle")) {
+                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                    return true;
+                }
+
+                BottleToggle.parseBottleToggle(player, args);
                 break;
             case "until":
                 if (!player.hasPermission("xpmanager.command.bottle.until")) {
@@ -57,7 +73,7 @@ public class BottleCommand implements TabExecutor {
                 BottleUntil.parseBottleUntil(player, args);
                 break;
             default:
-                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/store/until}");
+                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/stats/store/toggle/until}");
         }
 
         return true;
@@ -67,7 +83,7 @@ public class BottleCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         switch (args.length) {
             case 1:
-                return List.of("convert", "get", "store", "until");
+                return List.of("convert", "get", "stats", "store", "toggle", "until");
 
             case 2:
                 if (args[0].equals("get")) {
@@ -76,6 +92,10 @@ public class BottleCommand implements TabExecutor {
 
                 if (args[0].equals("store")) {
                     return List.of("max", "{amount}");
+                }
+
+                if (args[0].equals("toggle")) {
+                    return List.of("thrown");
                 }
 
                 if (args[0].equals("until")) {

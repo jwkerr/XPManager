@@ -37,6 +37,8 @@ permissions:
       xpmanager.command.bottle.convert: true
       xpmanager.command.bottle.get: true
       xpmanager.command.bottle.store: true
+      xpmanager.command.bottle.toggle: true
+      xpmanager.command.bottle.toggle.*: true
       xpmanager.command.bottle.until: true
 
   xpmanager.command.bottle.convert:
@@ -49,6 +51,20 @@ permissions:
 
   xpmanager.command.bottle.store:
     description: "Grants permission to use the bottle store command method"
+    default: true
+
+  xpmanager.command.bottle.toggle:
+    description: "Grants permission to use the bottle toggle command method"
+    default: true
+
+  xpmanager.command.bottle.toggle.*:
+    description: "Grants permission to all bottle toggle methods"
+    default: true
+    children:
+      xpmanager.command.bottle.toggle.thrown: true
+
+  xpmanager.command.bottle.toggle.thrown:
+    description: "Grants permission to toggle throwing store bottles to instantly consume them instead"
     default: true
 
   xpmanager.command.bottle.until:
