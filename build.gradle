@@ -1,10 +1,10 @@
 plugins {
-    id 'java'
+    id "java"
     id("io.papermc.paperweight.userdev") version("1.5.5")
 }
 
-group = 'net.earthmc'
-version = '0.2.0'
+group = "net.earthmc"
+version = "0.3.0"
 
 repositories {
     mavenLocal()
@@ -50,8 +50,8 @@ tasks.withType(JavaCompile).configureEach {
 processResources {
     def props = [version: version]
     inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
+    filteringCharset "UTF-8"
+    filesMatching("plugin.yml") {
         expand props
     }
 }
