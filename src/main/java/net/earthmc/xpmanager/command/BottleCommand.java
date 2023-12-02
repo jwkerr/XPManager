@@ -1,6 +1,7 @@
 package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -25,50 +26,38 @@ public class BottleCommand implements TabExecutor {
         String method = args[0];
         switch (method) {
             case "convert":
-                if (!player.hasPermission("xpmanager.command.bottle.convert")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.convert"))
                     return true;
-                }
 
                 BottleConvert.convertStandardBottlesToStoreBottle(player);
                 break;
             case "get":
-                if (!player.hasPermission("xpmanager.command.bottle.get")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.get"))
                     return true;
-                }
 
                 BottleGet.parseBottleGet(player, args, false);
                 break;
             case "stats":
-                if (!player.hasPermission("xpmanager.command.bottle.stats")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.stats"))
                     return true;
-                }
 
                 BottleStats.parseBottleStats(player);
                 break;
             case "store":
-                if (!player.hasPermission("xpmanager.command.bottle.store")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.store"))
                     return true;
-                }
 
                 BottleStore.parseBottleStore(player, args, false);
                 break;
             case "toggle":
-                if (!player.hasPermission("xpmanager.command.bottle.toggle")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.toggle"))
                     return true;
-                }
 
                 BottleToggle.parseBottleToggle(player, args);
                 break;
             case "until":
-                if (!player.hasPermission("xpmanager.command.bottle.until")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.until"))
                     return true;
-                }
 
                 BottleUntil.parseBottleUntil(player, args);
                 break;

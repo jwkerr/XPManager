@@ -53,14 +53,14 @@ public class BottleUtil {
         return 0;
     }
 
-    public static boolean shouldThrowStoreBottles(Player player) {
+    public static byte shouldThrowStoreBottles(Player player) {
         NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-should-throw-store-bottles");
         PersistentDataContainer container = player.getPersistentDataContainer();
 
         if (container.has(key)) {
-            return container.get(key, PersistentDataType.BOOLEAN);
+            return container.get(key, PersistentDataType.BYTE);
         }
 
-        return false;
+        return 1;
     }
 }

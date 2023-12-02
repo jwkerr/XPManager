@@ -1,6 +1,7 @@
 package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -25,18 +26,14 @@ public class BottleAdminCommand implements TabExecutor {
         String method = args[0];
         switch (method) {
             case "get":
-                if (!player.hasPermission("xpmanager.command.bottleadmin.get")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottleadmin.get"))
                     return true;
-                }
 
                 BottleGet.parseBottleGet(player, args, true);
                 break;
             case "store":
-                if (!player.hasPermission("xpmanager.command.bottleadmin.store")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottleadmin.store"))
                     return true;
-                }
 
                 BottleStore.parseBottleStore(player, args, true);
                 break;

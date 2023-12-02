@@ -16,7 +16,7 @@ public class ProjectileLaunchListener implements Listener {
         if (!(event.getEntity().getShooter() instanceof Player player))
             return;
 
-        if (BottleUtil.shouldThrowStoreBottles(player))
+        if (BottleUtil.shouldThrowStoreBottles(player) == 1)
             return;
 
         if (!(event.getEntity() instanceof ThrownExpBottle thrownBottle))

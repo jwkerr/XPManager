@@ -2,6 +2,7 @@ package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -17,10 +18,8 @@ public class BottleToggle {
         String method = args[1];
         switch (method) {
             case "thrown":
-                if (!player.hasPermission("xpmanager.command.bottle.toggle.thrown")) {
-                    XPManagerMessaging.sendErrorMessage(player, "You do not have permission to perform this action");
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.toggle.thrown"))
                     return;
-                }
 
                 toggleThrowableStoreBottles(player);
                 break;
@@ -32,15 +31,16 @@ public class BottleToggle {
     private static void toggleThrowableStoreBottles(Player player) {
         PersistentDataContainer container = player.getPersistentDataContainer();
 
-        boolean shouldThrowStoreBottles = true;
+        byte shouldThrowStoreBottles = 1;
         NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-should-throw-store-bottles");
         if (container.has(key)) {
-            shouldThrowStoreBottles = container.get(key, PersistentDataType.BOOLEAN);
+            shouldThrowStoreBottles = container.get(key, PersistentDataType.BYTE);
         }
 
-        container.set(key, PersistentDataType.BOOLEAN, !shouldThrowStoreBottles);
+        shouldThrowStoreBottles = (byte) (shouldThrowStoreBottles ^ 1);
+        container.set(key, PersistentDataType.BYTE, shouldThrowStoreBottles);
 
-        if (shouldThrowStoreBottles) {
+        if (shouldThrowStoreBottles == 0) {
             XPManagerMessaging.sendSuccessMessage(player, "Store bottles will now be instantly used on consumption");
         } else {
             XPManagerMessaging.sendSuccessMessage(player, "Store bottles will now be thrown on consumption");
