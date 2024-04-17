@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class BottleUtil {
+
     public static boolean isItemStoreBottle(ItemStack item) {
         if (item.getType() != Material.EXPERIENCE_BOTTLE) {
             return false;

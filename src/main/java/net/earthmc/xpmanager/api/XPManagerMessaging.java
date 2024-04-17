@@ -3,30 +3,22 @@ package net.earthmc.xpmanager.api;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class XPManagerMessaging {
-    private static Component getPrefixComponent() {
-        return Component.text()
-                .content("XPM").color(TextColor.color(0x5096AA))
-                .append(Component.text(" » ").color(NamedTextColor.DARK_GRAY))
-                .build();
-    }
 
-    public static void sendSuccessMessage(Player player, String message) {
-        player.sendMessage(getPrefixComponent()
-                .append(Component.text(message).color(NamedTextColor.GREEN).decorate(TextDecoration.ITALIC)));
-    }
+    private static final Component PREFIX_COMPONENT = Component.text("XPM", TextColor.color(0x5096AA))
+            .append(Component.text(" » ").color(NamedTextColor.DARK_GRAY));
 
-    public static void sendErrorMessage(Player player, String message) {
-        player.sendMessage(getPrefixComponent()
-                .append(Component.text(message).color(NamedTextColor.RED).decorate(TextDecoration.ITALIC)));
+    public static void sendSuccessMessage(CommandSender sender, String message) {
+        sendMessage(sender, Component.text(message, NamedTextColor.GREEN));
     }
 
     public static void sendErrorMessage(CommandSender sender, String message) {
-        sender.sendMessage(getPrefixComponent()
-                .append(Component.text(message).color(NamedTextColor.RED).decorate(TextDecoration.ITALIC)));
+        sendMessage(sender, Component.text(message, NamedTextColor.RED));
+    }
+
+    private static void sendMessage(CommandSender sender, Component message) {
+        sender.sendMessage(PREFIX_COMPONENT.append(message));
     }
 }

@@ -3,6 +3,7 @@ package net.earthmc.xpmanager.util;
 import org.bukkit.entity.Player;
 
 public class ExperienceUtil {
+
     /**
      * Calculate a player's total experience based on level and progress to next.
      *

@@ -7,6 +7,7 @@ import org.bukkit.event.entity.ExpBottleEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ExpBottleListener implements Listener {
+
     @EventHandler
     public void onExpBottle(ExpBottleEvent event) {
         ItemStack bottle = event.getEntity().getItem();

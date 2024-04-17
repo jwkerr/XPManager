@@ -1,6 +1,8 @@
 package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.command.handler.GetMethodHandler;
+import net.earthmc.xpmanager.command.handler.StoreMethodHandler;
 import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class BottleAdminCommand implements TabExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
@@ -29,13 +32,15 @@ public class BottleAdminCommand implements TabExecutor {
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottleadmin.get"))
                     return true;
 
-                BottleGet.parseBottleGet(player, args, true);
+                GetMethodHandler gmh = new GetMethodHandler(player, args, true);
+                gmh.handleMethod();
                 break;
             case "store":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottleadmin.store"))
                     return true;
 
-                BottleStore.parseBottleStore(player, args, true);
+                StoreMethodHandler smh = new StoreMethodHandler(player, args, true);
+                smh.handleMethod();
                 break;
             default:
                 XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {get/store}");

@@ -1,6 +1,7 @@
-package net.earthmc.xpmanager.command;
+package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.object.MethodHandler;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,8 +9,20 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class BottleGet {
-    public static void parseBottleGet(Player player, String[] args, boolean isAdmin) {
+public class GetMethodHandler extends MethodHandler {
+
+    private final String[] args;
+    private final boolean isAdmin;
+
+    public GetMethodHandler(Player player, String[] args, boolean isAdmin) {
+        super(player);
+
+        this.args = args;
+        this.isAdmin = isAdmin;
+    }
+
+    @Override
+    public void handleMethod() {
         if (args.length < 2) {
             XPManagerMessaging.sendErrorMessage(player, "Command usage: /bottle get 196");
             return;

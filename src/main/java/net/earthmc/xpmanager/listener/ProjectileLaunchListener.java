@@ -11,15 +11,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class ProjectileLaunchListener implements Listener {
+
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         if (!(event.getEntity().getShooter() instanceof Player player))
             return;
 
-        if (BottleUtil.shouldThrowStoreBottles(player) == 1)
+        if (!(event.getEntity() instanceof ThrownExpBottle thrownBottle))
             return;
 
-        if (!(event.getEntity() instanceof ThrownExpBottle thrownBottle))
+        if (BottleUtil.shouldThrowStoreBottles(player) == 1)
             return;
 
         ItemStack bottle = thrownBottle.getItem();

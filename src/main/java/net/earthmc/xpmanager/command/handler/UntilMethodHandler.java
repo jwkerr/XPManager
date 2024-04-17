@@ -1,11 +1,22 @@
-package net.earthmc.xpmanager.command;
+package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.object.MethodHandler;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.entity.Player;
 
-public class BottleUntil {
-    public static void parseBottleUntil(Player player, String[] args) {
+public class UntilMethodHandler extends MethodHandler {
+
+    private final String[] args;
+
+    public UntilMethodHandler(Player player, String[] args) {
+        super(player);
+
+        this.args = args;
+    }
+
+    @Override
+    public void handleMethod() {
         if (args.length < 2) {
             XPManagerMessaging.sendErrorMessage(player, "Command usage: /bottle until 155");
             return;

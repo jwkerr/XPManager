@@ -1,14 +1,21 @@
-package net.earthmc.xpmanager.command;
+package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.object.MethodHandler;
 import net.earthmc.xpmanager.util.BottleUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class BottleConvert {
-    public static void convertStandardBottlesToStoreBottle(Player player) {
+public class ConvertMethodHandler extends MethodHandler {
+
+    public ConvertMethodHandler(Player player) {
+        super(player);
+    }
+
+    @Override
+    public void handleMethod() {
         int numBottles = 0;
 
         PlayerInventory inventory = player.getInventory();
@@ -31,7 +38,7 @@ public class BottleConvert {
 
         int numXP = numBottles * 10;
 
-        BottleStore.givePlayerStoreBottleQuantity(player, numXP, 1);
+        StoreMethodHandler.givePlayerStoreBottleQuantity(player, numXP, 1);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully converted " + numBottles + " bottles to a store bottle containing " + numXP + " XP");
     }
 }

@@ -1,7 +1,8 @@
-package net.earthmc.xpmanager.command;
+package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.object.MethodHandler;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -17,8 +18,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class BottleStore {
-    public static void parseBottleStore(Player player, String[] args, boolean isAdmin) {
+public class StoreMethodHandler extends MethodHandler {
+
+    private final String[] args;
+    private final boolean isAdmin;
+
+    public StoreMethodHandler(Player player, String[] args, boolean isAdmin) {
+        super(player);
+
+        this.args = args;
+        this.isAdmin = isAdmin;
+    }
+
+    @Override
+    public void handleMethod() {
         if (args.length < 2) {
             XPManagerMessaging.sendErrorMessage(player, "Command usage: /bottle store 1395 64");
             return;
@@ -112,10 +125,8 @@ public class BottleStore {
     }
 
     private static List<Component> getStoreLoreComponent(int amount) {
-        Component component = Component.text()
-                .content("Stored XP: ").color(NamedTextColor.DARK_GRAY)
-                .append(Component.text(amount).color(TextColor.color(0x5096AA)))
-                .build();
+        Component component = Component.text("Stored XP: ", NamedTextColor.DARK_GRAY)
+                .append(Component.text(amount, TextColor.color(0x5096AA)));
 
         return Collections.singletonList(component);
     }

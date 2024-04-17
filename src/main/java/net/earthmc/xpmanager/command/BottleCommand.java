@@ -1,6 +1,7 @@
 package net.earthmc.xpmanager.command;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
+import net.earthmc.xpmanager.command.handler.*;
 import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class BottleCommand implements TabExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
@@ -29,37 +31,43 @@ public class BottleCommand implements TabExecutor {
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.convert"))
                     return true;
 
-                BottleConvert.convertStandardBottlesToStoreBottle(player);
+                ConvertMethodHandler cmh = new ConvertMethodHandler(player);
+                cmh.handleMethod();
                 break;
             case "get":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.get"))
                     return true;
 
-                BottleGet.parseBottleGet(player, args, false);
+                GetMethodHandler gmh = new GetMethodHandler(player, args, false);
+                gmh.handleMethod();
                 break;
             case "stats":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.stats"))
                     return true;
 
-                BottleStats.parseBottleStats(player);
+                StatsMethodHandler smh = new StatsMethodHandler(player);
+                smh.handleMethod();
                 break;
             case "store":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.store"))
                     return true;
 
-                BottleStore.parseBottleStore(player, args, false);
+                StoreMethodHandler stmh = new StoreMethodHandler(player, args, false);
+                stmh.handleMethod();
                 break;
             case "toggle":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.toggle"))
                     return true;
 
-                BottleToggle.parseBottleToggle(player, args);
+                ToggleMethodHandler tmh = new ToggleMethodHandler(player, args);
+                tmh.handleMethod();
                 break;
             case "until":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.until"))
                     return true;
 
-                BottleUntil.parseBottleUntil(player, args);
+                UntilMethodHandler umh = new UntilMethodHandler(player, args);
+                umh.handleMethod();
                 break;
             default:
                 XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/stats/store/toggle/until}");
