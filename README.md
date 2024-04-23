@@ -1,13 +1,17 @@
 # XPManager
 
-Backwards compatibility with BottledExp's store bottles is maintained in XPManager, store bottles no longer disappear on use but are instead thrown like a normal bottle with their XP value overridden on impact.
+Backwards compatibility with BottledExp's store bottles is maintained in XPManager.
 
 ## Commands
 
 - bottle (b, xpm)
   - convert: used to convert all standard, non-store bottles in the user's inventory into a singular store bottle
   - get {amount/max}: creates the specified amount of standard XP bottles or the maximum possible given the user's XP
+  - mend: creates a bottle that will exactly repair the tool currently in your hand
+  - stats: shows stats about your current level
   - store {amount/max} {quantity/max}: stores the specified amount of XP in a singular throwable bottle, takes an optional quantity parameter
+  - toggle: toggles settings in the plugin for the player running the command
+    - thrown: toggles whether store bottles will be thrown or instantly consumed upon their use
   - until {level}: tells you how much xp you need to reach the specified level
 - bottleadmin (ba, xpma)
   - get {amount}: creates the given amount of bottles without the user needing that XP on their player
