@@ -16,17 +16,23 @@ public class ConvertMethodHandler extends MethodHandler {
 
     @Override
     public void handleMethod() {
+        int numXP = 0;
         int numBottles = 0;
 
         PlayerInventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack == null) {
-                continue;
-            }
+            if (itemStack == null) continue;
 
-            if (itemStack.getType().equals(Material.EXPERIENCE_BOTTLE) && !BottleUtil.isItemStoreBottle(itemStack)) {
-                numBottles += itemStack.getAmount();
+            if (itemStack.getType().equals(Material.EXPERIENCE_BOTTLE)) {
+                int amount = itemStack.getAmount();
+                if (BottleUtil.isItemStoreBottle(itemStack)) {
+                    numXP += BottleUtil.getXPQuantityFromStoreBottle(itemStack) * amount;
+                } else {
+                    numXP += amount * 10;
+                }
+
+                numBottles += amount;
                 inventory.setItem(i, null);
             }
         }
@@ -35,8 +41,6 @@ public class ConvertMethodHandler extends MethodHandler {
             XPManagerMessaging.sendErrorMessage(player, "There are no valid experience bottles in your inventory");
             return;
         }
-
-        int numXP = numBottles * 10;
 
         StoreMethodHandler.givePlayerStoreBottleQuantity(player, numXP, 1);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully converted " + numBottles + " bottles to a store bottle containing " + numXP + " XP");
