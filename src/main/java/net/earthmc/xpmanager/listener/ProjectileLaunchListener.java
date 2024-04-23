@@ -2,6 +2,7 @@ package net.earthmc.xpmanager.listener;
 
 import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownExpBottle;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.Random;
 
 public class ProjectileLaunchListener implements Listener {
 
@@ -36,5 +39,8 @@ public class ProjectileLaunchListener implements Listener {
 
         int amount = BottleUtil.getXPQuantityFromStoreBottle(bottle);
         ExperienceUtil.changeXP(player, amount);
+
+        Random random = new Random();
+        player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.1f, random.nextFloat(0.55f, 1.25f));
     }
 }
