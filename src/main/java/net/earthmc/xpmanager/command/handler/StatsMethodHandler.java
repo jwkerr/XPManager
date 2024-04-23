@@ -1,6 +1,7 @@
 package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.object.MethodHandler;
+import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -24,11 +25,11 @@ public class StatsMethodHandler extends MethodHandler {
 
         Component component = Component.text("Total experience", TextColor.color(0x5096AA))
                 .append(Component.text(": ", NamedTextColor.DARK_GRAY))
-                .append(Component.text(totalCurrentXP + " XP or " + player.getLevel() + " levels", NamedTextColor.GREEN))
+                .append(Component.text(BottleUtil.getPrettyNumber(totalCurrentXP) + " XP or " + BottleUtil.getPrettyNumber(player.getLevel()) + " levels", NamedTextColor.GREEN))
                 .appendNewline()
                 .append(Component.text("Experience until next level", TextColor.color(0x5096aa)))
                 .append(Component.text(": ", NamedTextColor.DARK_GRAY))
-                .append(Component.text(remainingXP + " XP or " + bottlesToGoal + " bottles", NamedTextColor.GREEN));
+                .append(Component.text(BottleUtil.getPrettyNumber(remainingXP) + " XP or " + BottleUtil.getPrettyNumber(bottlesToGoal) + " bottles", NamedTextColor.GREEN));
 
         player.sendMessage(component);
     }

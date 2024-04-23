@@ -43,6 +43,6 @@ public class ConvertMethodHandler extends MethodHandler {
         }
 
         StoreMethodHandler.givePlayerStoreBottleQuantity(player, numXP, 1);
-        XPManagerMessaging.sendSuccessMessage(player, "Successfully converted " + numBottles + " bottles to a store bottle containing " + numXP + " XP");
+        XPManagerMessaging.sendSuccessMessage(player, "Successfully converted " + BottleUtil.getPrettyNumber(numBottles) + " bottles to a store bottle containing " + BottleUtil.getPrettyNumber(numXP) + " XP");
     }
 }

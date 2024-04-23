@@ -3,6 +3,7 @@ package net.earthmc.xpmanager.command.handler;
 import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.object.MethodHandler;
+import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -80,27 +81,26 @@ public class StoreMethodHandler extends MethodHandler {
             }
         }
 
-        if (quantity == null || quantity < 1) {
+        if (quantity == null || quantity < 1)
             quantity = 1;
-        }
 
+        int totalXP = amount * quantity;
         if (isAdmin) {
             givePlayerStoreBottleQuantity(player, amount, quantity);
 
-            XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + (amount * quantity) + " XP");
+            XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + BottleUtil.getPrettyNumber(totalXP) + " XP");
             return;
         }
 
-        int totalXP = amount * quantity;
         if (totalXP > currentXP || totalXP <= 0) { // Catch integer overflows that may occur from setting extremely high quantities
             XPManagerMessaging.sendErrorMessage(player, "You do not have enough experience");
             return;
         }
 
-        ExperienceUtil.changeXP(player, -(amount * quantity));
+        ExperienceUtil.changeXP(player, -totalXP);
 
         givePlayerStoreBottleQuantity(player, amount, quantity);
-        XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + (amount * quantity) + " XP");
+        XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + BottleUtil.getPrettyNumber(totalXP) + " XP");
     }
 
     public static void givePlayerStoreBottleQuantity(Player player, int xpAmount, int quantity) {
@@ -126,7 +126,7 @@ public class StoreMethodHandler extends MethodHandler {
 
     private static List<Component> getStoreLoreComponent(int amount) {
         Component component = Component.text("Stored XP: ", NamedTextColor.DARK_GRAY)
-                .append(Component.text(amount, TextColor.color(0x5096AA)));
+                .append(Component.text(BottleUtil.getPrettyNumber(amount), TextColor.color(0x5096AA)));
 
         return Collections.singletonList(component);
     }

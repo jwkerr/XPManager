@@ -2,6 +2,7 @@ package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.object.MethodHandler;
+import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.entity.Player;
 
@@ -47,6 +48,6 @@ public class UntilMethodHandler extends MethodHandler {
         int remainingXP = totalGoalLevelXP - totalCurrentXP;
         int bottlesToGoal = (int) Math.ceil(remainingXP / 10.0);
 
-        XPManagerMessaging.sendSuccessMessage(player, "You need " + remainingXP + " XP or " + bottlesToGoal + " bottles to reach level " + goalLevel);
+        XPManagerMessaging.sendSuccessMessage(player, "You need " + BottleUtil.getPrettyNumber(remainingXP) + " XP or " + BottleUtil.getPrettyNumber(bottlesToGoal) + " bottles to reach level " + BottleUtil.getPrettyNumber(goalLevel));
     }
 }

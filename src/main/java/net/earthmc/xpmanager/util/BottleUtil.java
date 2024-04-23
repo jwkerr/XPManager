@@ -69,4 +69,8 @@ public class BottleUtil {
 
         return 1;
     }
+
+    public static String getPrettyNumber(int number) {
+        return String.format("%,d", number);
+    }
 }

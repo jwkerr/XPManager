@@ -2,6 +2,7 @@ package net.earthmc.xpmanager.command.handler;
 
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.object.MethodHandler;
+import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,7 +49,7 @@ public class GetMethodHandler extends MethodHandler {
         if (isAdmin) {
             givePlayerStandardBottleQuantity(player, quantity);
 
-            XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + quantity + " bottles");
+            XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + BottleUtil.getPrettyNumber(quantity) + " bottles");
             return;
         }
 
@@ -62,7 +63,7 @@ public class GetMethodHandler extends MethodHandler {
         ExperienceUtil.changeXP(player, -xpAmount);
 
         givePlayerStandardBottleQuantity(player, quantity);
-        XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + quantity + " bottles");
+        XPManagerMessaging.sendSuccessMessage(player, "Successfully created " + BottleUtil.getPrettyNumber(quantity) + " bottles");
     }
 
     private static void givePlayerStandardBottleQuantity(Player player, int quantity) {
