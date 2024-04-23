@@ -36,6 +36,11 @@ public class BottleUtil {
         return tag.contains("StoredBottledExp");
     }
 
+    /**
+     *
+     * @param bottle Experience bottle to check the store data container of
+     * @return The amount of XP stored in the bottle, ignores ItemStack amount
+     */
     public static int getXPQuantityFromStoreBottle(ItemStack bottle) {
         NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-store-amount");
         PersistentDataContainer container = bottle.getItemMeta().getPersistentDataContainer();
