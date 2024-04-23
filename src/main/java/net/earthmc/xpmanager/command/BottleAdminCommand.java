@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BottleAdminCommand implements TabExecutor {
 
@@ -53,20 +54,28 @@ public class BottleAdminCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         switch (args.length) {
             case 1:
-                return List.of("get", "store");
+                return Stream.of("get", "store")
+                        .filter(s -> s.startsWith(args[0].toLowerCase()))
+                        .toList();
 
             case 2:
                 if (args[0].equals("get")) {
-                    return List.of("{quantity}");
+                    return Stream.of("{quantity}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
                 }
 
                 if (args[0].equals("store")) {
-                    return List.of("{amount}");
+                    return Stream.of("{amount}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
                 }
 
             case 3:
                 if (args[0].equals("store")) {
-                    return List.of("{quantity}");
+                    return Stream.of("{quantity}")
+                            .filter(s -> s.startsWith(args[2].toLowerCase()))
+                            .toList();
                 }
         }
 

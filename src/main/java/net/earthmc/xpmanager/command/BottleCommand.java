@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BottleCommand implements TabExecutor {
 
@@ -85,21 +86,33 @@ public class BottleCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        switch (args.length) {
+        switch (args.length) { // TODO: cleanup TabCompleters to make them less repetitive and verbose
             case 1:
-                return List.of("convert", "get", "mend", "stats", "store", "toggle", "until");
+                return Stream.of("convert", "get", "mend", "stats", "store", "toggle", "until")
+                        .filter(s -> s.startsWith(args[0].toLowerCase()))
+                        .toList();
 
             case 2:
                 switch (args[0]) {
-                    case "get": return List.of("max", "{quantity}");
-                    case "store": return List.of("max", "{amount}");
-                    case "toggle": return List.of("thrown");
-                    case "until": return List.of("{level}");
+                    case "get": return Stream.of("max", "{quantity}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
+                    case "store": return Stream.of("max", "{amount}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
+                    case "toggle": return Stream.of("thrown")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
+                    case "until": return Stream.of("{level}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
                 }
 
             case 3:
                 if (args[0].equals("store")) {
-                    return List.of("max", "{quantity}");
+                    return Stream.of("max", "{quantity}")
+                            .filter(s -> s.startsWith(args[2].toLowerCase()))
+                            .toList();
                 }
         }
 
