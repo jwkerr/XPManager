@@ -11,7 +11,7 @@ folia-supported: true
 commands:
   bottle:
     description: "Create XP bottles"
-    usage: "/bottle {convert/get/stats/store/toggle/until}"
+    usage: "/bottle {convert/get/mend/stats/store/toggle/until}"
     permission: "xpmanager.command.bottle"
     aliases:
       - "b"
@@ -36,6 +36,7 @@ permissions:
     children:
       xpmanager.command.bottle.convert: true
       xpmanager.command.bottle.get: true
+      xpmanager.command.bottle.mend: true
       xpmanager.command.bottle.stats: true
       xpmanager.command.bottle.store: true
       xpmanager.command.bottle.toggle: true
@@ -48,6 +49,10 @@ permissions:
 
   xpmanager.command.bottle.get:
     description: "Grants permission to use the bottle get command method"
+    default: true
+
+  xpmanager.command.bottle.mend:
+    description: "Grants permission to use the bottle mend command method"
     default: true
 
   xpmanager.command.bottle.stats:

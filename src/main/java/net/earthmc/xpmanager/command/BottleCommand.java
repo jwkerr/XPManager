@@ -41,6 +41,13 @@ public class BottleCommand implements TabExecutor {
                 GetMethodHandler gmh = new GetMethodHandler(player, args, false);
                 gmh.handleMethod();
                 break;
+            case "mend":
+                if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.mend"))
+                    return true;
+
+                MendMethodHandler mmh = new MendMethodHandler(player);
+                mmh.handleMethod();
+                break;
             case "stats":
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.stats"))
                     return true;
@@ -70,7 +77,7 @@ public class BottleCommand implements TabExecutor {
                 umh.handleMethod();
                 break;
             default:
-                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/stats/store/toggle/until}");
+                XPManagerMessaging.sendErrorMessage(player, "Invalid first argument: " + method + ". Valid first arguments are {convert/get/mend/stats/store/toggle/until}");
         }
 
         return true;
@@ -80,23 +87,14 @@ public class BottleCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         switch (args.length) {
             case 1:
-                return List.of("convert", "get", "stats", "store", "toggle", "until");
+                return List.of("convert", "get", "mend", "stats", "store", "toggle", "until");
 
             case 2:
-                if (args[0].equals("get")) {
-                    return List.of("max", "{quantity}");
-                }
-
-                if (args[0].equals("store")) {
-                    return List.of("max", "{amount}");
-                }
-
-                if (args[0].equals("toggle")) {
-                    return List.of("thrown");
-                }
-
-                if (args[0].equals("until")) {
-                    return List.of("{level}");
+                switch (args[0]) {
+                    case "get": return List.of("max", "{quantity}");
+                    case "store": return List.of("max", "{amount}");
+                    case "toggle": return List.of("thrown");
+                    case "until": return List.of("{level}");
                 }
 
             case 3:
