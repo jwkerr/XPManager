@@ -4,7 +4,7 @@ main: net.earthmc.xpmanager.XPManager
 api-version: "1.19"
 prefix: XPManager
 authors: [Fruitloopins]
-description: XP bottle management plugin
+description: A bottle plugin that improves upon and maintains compatibility with the bottles from BottledExp
 website: https://earthmc.net
 folia-supported: true
 
