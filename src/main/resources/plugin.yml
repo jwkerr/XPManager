@@ -86,7 +86,7 @@ permissions:
     default: op
 
   xpmanager.command.bottleadmin.*:
-    description: "Grants permission to all bottleadmin command methods"
+    description: "Grants permission to use all bottleadmin command methods"
     default: op
     children:
       xpmanager.command.bottleadmin.get: true

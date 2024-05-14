@@ -4,6 +4,8 @@ XPManager is a drop-in replacement for [BottledExp](https://www.spigotmc.org/res
 
 Backwards compatibility with BottledExp's store bottles is maintained in XPManager by default so old bottles will not be rendered useless, this plugin has no config as of now.
 
+You can find all available permission nodes [here](https://github.com/jwkerr/XPManager/wiki/Permissions).
+
 Before installing keep in mind that all the niche features of BottledExp may not necessarily be here, what you see below is what you get, but you are free to open a GitHub issue and there's a good chance it will be added. There has also been a design decision made to make the cost of a single regular bottle simply 10 XP. Creating it costs 10 XP, throwing it gives 10 XP.
 
 ## Things you might find neat
