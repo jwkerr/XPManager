@@ -32,7 +32,7 @@ Before installing keep in mind that all the niche features of BottledExp may not
 
 ## Credits
 
-My thanks to the developers of [NBT API]("https://github.com/tr7zw/Item-NBT-API") for their library.
+My thanks to the developers of [NBT API](https://github.com/tr7zw/Item-NBT-API) for their library.
 
 ## Building
 
