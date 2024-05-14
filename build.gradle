@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id("io.papermc.paperweight.userdev") version("1.5.5")
+    id ("com.github.johnrengelman.shadow") version("8.1.1")
 }
 
 group = "net.earthmc"
@@ -16,11 +16,22 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "codemc"
+        url = "https://repo.codemc.org/repository/maven-public/"
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
-    paperweight.paperDevBundle("1.19.4-R0.1-SNAPSHOT")
+    implementation("de.tr7zw:item-nbt-api:2.12.4")
+}
+
+shadowJar {
+    relocate "de.tr7zw.changeme.nbtapi", "net.earthmc.xpmanager.nbtapi"
+    exclude "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA"
+
+    archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 def targetJavaVersion = 17
@@ -34,12 +45,6 @@ java {
 }
 
 compileJava.options.encoding = "UTF-8"
-
-tasks {
-    assemble {
-        dependsOn(reobfJar)
-    }
-}
 
 tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {

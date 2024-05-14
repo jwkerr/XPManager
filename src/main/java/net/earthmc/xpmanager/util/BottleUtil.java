@@ -1,10 +1,9 @@
 package net.earthmc.xpmanager.util;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.earthmc.xpmanager.XPManager;
-import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,6 +11,8 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class BottleUtil {
+
+    public static final String BOTTLED_EXP_TAG = "StoredBottledExp";
 
     public static boolean isItemStoreBottle(ItemStack item) {
         if (item.getType() != Material.EXPERIENCE_BOTTLE) {
@@ -26,14 +27,8 @@ public class BottleUtil {
             return true;
         }
 
-        net.minecraft.world.item.ItemStack itemStack = CraftItemStack.asNMSCopy(item);
-
-        CompoundTag tag = itemStack.getTag();
-        if (tag == null) {
-            return false;
-        }
-
-        return tag.contains("StoredBottledExp");
+        NBTItem nbti = new NBTItem(item);
+        return nbti.hasTag(BOTTLED_EXP_TAG);
     }
 
     /**
@@ -49,11 +44,9 @@ public class BottleUtil {
             return container.get(key, PersistentDataType.INTEGER);
         }
 
-        net.minecraft.world.item.ItemStack itemStack = CraftItemStack.asNMSCopy(bottle);
-
-        CompoundTag tag = itemStack.getTag();
-        if (tag != null) {
-            return tag.getInt("StoredBottledExp");
+        NBTItem nbti = new NBTItem(bottle);
+        if (nbti.hasTag(BOTTLED_EXP_TAG)) {
+            return nbti.getInteger(BOTTLED_EXP_TAG);
         }
 
         return 0;
