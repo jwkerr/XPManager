@@ -42,7 +42,7 @@ public class ConvertMethodHandler extends MethodHandler {
             return;
         }
 
-        StoreMethodHandler.givePlayerStoreBottleQuantity(player, numXP, 1);
+        BottleUtil.givePlayerStoreBottleQuantity(player, numXP, 1);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully converted " + BottleUtil.getPrettyNumber(numBottles) + " bottles to a store bottle containing " + BottleUtil.getPrettyNumber(numXP) + " XP");
     }
 }

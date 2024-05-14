@@ -1,23 +1,10 @@
 package net.earthmc.xpmanager.command.handler;
 
-import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.object.MethodHandler;
 import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 public class StoreMethodHandler extends MethodHandler {
 
@@ -86,7 +73,7 @@ public class StoreMethodHandler extends MethodHandler {
 
         int totalXP = amount * quantity;
         if (isAdmin) {
-            givePlayerStoreBottleQuantity(player, amount, quantity);
+            BottleUtil.givePlayerStoreBottleQuantity(player, amount, quantity);
 
             XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + BottleUtil.getPrettyNumber(totalXP) + " XP");
             return;
@@ -99,35 +86,7 @@ public class StoreMethodHandler extends MethodHandler {
 
         ExperienceUtil.changeXP(player, -totalXP);
 
-        givePlayerStoreBottleQuantity(player, amount, quantity);
+        BottleUtil.givePlayerStoreBottleQuantity(player, amount, quantity);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + BottleUtil.getPrettyNumber(totalXP) + " XP");
-    }
-
-    public static void givePlayerStoreBottleQuantity(Player player, int xpAmount, int quantity) {
-        ItemStack bottles = new ItemStack(Material.EXPERIENCE_BOTTLE, quantity);
-
-        ItemMeta meta = bottles.getItemMeta();
-
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-store-amount");
-        meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, xpAmount);
-        bottles.setItemMeta(meta);
-
-        bottles.lore(getStoreLoreComponent(xpAmount));
-
-        HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(bottles);
-        if (remainingItems.isEmpty()) {
-            return;
-        }
-
-        for (ItemStack item : remainingItems.values()) {
-            player.getWorld().dropItem(player.getLocation(), item);
-        }
-    }
-
-    private static List<Component> getStoreLoreComponent(int amount) {
-        Component component = Component.text("Stored XP: ", NamedTextColor.DARK_GRAY)
-                .append(Component.text(BottleUtil.getPrettyNumber(amount), TextColor.color(0x5096AA)));
-
-        return Collections.singletonList(component);
     }
 }

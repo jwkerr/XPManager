@@ -37,7 +37,7 @@ public class MendMethodHandler extends MethodHandler {
             return;
         }
 
-        StoreMethodHandler.givePlayerStoreBottleQuantity(player, amount, 1);
+        BottleUtil.givePlayerStoreBottleQuantity(player, amount, 1);
         XPManagerMessaging.sendSuccessMessage(player, "Successfully stored " + BottleUtil.getPrettyNumber(amount) + " XP");
     }
 }
