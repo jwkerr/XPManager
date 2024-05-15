@@ -1,5 +1,6 @@
 package net.earthmc.xpmanager.listener;
 
+import com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent;
 import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.ExperienceUtil;
 import org.bukkit.Sound;
@@ -7,20 +8,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownExpBottle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import java.util.Random;
 
 public class ProjectileLaunchListener implements Listener {
 
     @EventHandler
-    public void onProjectileLaunch(ProjectileLaunchEvent event) {
-        if (!(event.getEntity().getShooter() instanceof Player player))
-            return;
+    public void onProjectileLaunch(PlayerLaunchProjectileEvent event) {
+        Player player = event.getPlayer();
 
-        if (!(event.getEntity() instanceof ThrownExpBottle thrownBottle))
+        if (!(event.getProjectile() instanceof ThrownExpBottle thrownBottle))
             return;
 
         if (BottleUtil.shouldThrowStoreBottles(player) == 1)
@@ -32,10 +30,8 @@ public class ProjectileLaunchListener implements Listener {
 
         event.setCancelled(true);
 
-        PlayerInventory inventory = player.getInventory();
-        ItemStack selectedItem = inventory.getItemInMainHand();
-        selectedItem.setAmount(selectedItem.getAmount() - 1);
-        inventory.setItemInMainHand(selectedItem);
+        ItemStack item = event.getItemStack();
+        item.setAmount(item.getAmount() - 1);
 
         int amount = BottleUtil.getXPQuantityFromStoreBottle(bottle);
         ExperienceUtil.changeXP(player, amount);
