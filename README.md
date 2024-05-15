@@ -35,6 +35,7 @@ Before installing keep in mind that all the niche features of BottledExp may not
 ## Credits
 
 My thanks to the developers of [NBT API](https://github.com/tr7zw/Item-NBT-API) for their library.
+Thanks to Jikoo for their [experience utility](https://gist.github.com/Jikoo/30ec040443a4701b8980) which I used and modified slightly.
 
 ## Building
 
