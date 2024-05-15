@@ -10,7 +10,7 @@ public class ExperienceUtil {
      * @param player the Player
      * @return the amount of experience the Player has
      *
-     * @see <a href=http://minecraft.gamepedia.com/Experience#Leveling_up>Experience#Leveling_up</a>
+     * @see <a href=https://minecraft.wiki/w/Experience#Leveling_up>Experience#Leveling_up</a>
      */
     public static int getTotalXP(Player player) {
         return getXPFromLevel(player.getLevel()) + Math.round(getXPToNext(player.getLevel()) * player.getExp());
@@ -22,7 +22,7 @@ public class ExperienceUtil {
      * @param level the level
      * @return the total experience calculated
      *
-     * @see <a href=http://minecraft.gamepedia.com/Experience#Leveling_up>Experience#Leveling_up</a>
+     * @see <a href=https://minecraft.wiki/w/Experience#Leveling_up>Experience#Leveling_up</a>
      */
     public static int getXPFromLevel(int level) {
         if (level > 30) {
@@ -80,7 +80,7 @@ public class ExperienceUtil {
      *
      * @param level the current level
      *
-     * @see <a href=http://minecraft.gamepedia.com/Experience#Leveling_up>Experience#Leveling_up</a>
+     * @see <a href=https://minecraft.wiki/w/Experience#Leveling_up>Experience#Leveling_up</a>
      */
     private static int getXPToNext(int level) {
         if (level >= 30) {
