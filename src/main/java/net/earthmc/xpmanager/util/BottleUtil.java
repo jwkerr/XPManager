@@ -20,22 +20,21 @@ import java.util.List;
 public class BottleUtil {
 
     public static final String BOTTLED_EXP_TAG = "StoredBottledExp";
+    public static final NamespacedKey STORE_KEY = new NamespacedKey(XPManager.getInstance(), "xpmanager-store-amount");
 
     public static void givePlayerStoreBottleQuantity(Player player, int xpAmount, int quantity) {
         ItemStack bottles = new ItemStack(Material.EXPERIENCE_BOTTLE, quantity);
 
         ItemMeta meta = bottles.getItemMeta();
 
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-store-amount");
-        meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, xpAmount);
+        meta.getPersistentDataContainer().set(STORE_KEY, PersistentDataType.INTEGER, xpAmount);
         bottles.setItemMeta(meta);
 
         bottles.lore(getStoreLoreComponent(xpAmount));
 
         HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(bottles);
-        if (remainingItems.isEmpty()) {
+        if (remainingItems.isEmpty())
             return;
-        }
 
         for (ItemStack item : remainingItems.values()) {
             player.getWorld().dropItem(player.getLocation(), item);
@@ -43,17 +42,13 @@ public class BottleUtil {
     }
 
     public static boolean isItemStoreBottle(ItemStack item) {
-        if (item.getType() != Material.EXPERIENCE_BOTTLE) {
+        if (item.getType() != Material.EXPERIENCE_BOTTLE)
             return false;
-        }
-
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-store-amount");
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
-        if (container.has(key, PersistentDataType.INTEGER)) {
+        if (container.has(STORE_KEY, PersistentDataType.INTEGER))
             return true;
-        }
 
         NBTItem nbti = new NBTItem(item);
         return nbti.hasTag(BOTTLED_EXP_TAG);
@@ -65,28 +60,23 @@ public class BottleUtil {
      * @return The amount of XP stored in the bottle, ignores ItemStack amount
      */
     public static int getXPQuantityFromStoreBottle(ItemStack bottle) {
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-store-amount");
         PersistentDataContainer container = bottle.getItemMeta().getPersistentDataContainer();
 
-        if (container.has(key)) {
-            return container.get(key, PersistentDataType.INTEGER);
-        }
+        if (container.has(STORE_KEY))
+            return container.get(STORE_KEY, PersistentDataType.INTEGER);
 
         NBTItem nbti = new NBTItem(bottle);
-        if (nbti.hasTag(BOTTLED_EXP_TAG)) {
+        if (nbti.hasTag(BOTTLED_EXP_TAG))
             return nbti.getInteger(BOTTLED_EXP_TAG);
-        }
 
         return 0;
     }
 
     public static byte shouldThrowStoreBottles(Player player) {
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-should-throw-store-bottles");
         PersistentDataContainer container = player.getPersistentDataContainer();
 
-        if (container.has(key)) {
-            return container.get(key, PersistentDataType.BYTE);
-        }
+        if (container.has(STORE_KEY))
+            return container.get(STORE_KEY, PersistentDataType.BYTE);
 
         return 1;
     }

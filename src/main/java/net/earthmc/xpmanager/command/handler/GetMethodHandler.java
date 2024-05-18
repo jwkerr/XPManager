@@ -70,9 +70,8 @@ public class GetMethodHandler extends MethodHandler {
         ItemStack bottles = new ItemStack(Material.EXPERIENCE_BOTTLE, quantity);
 
         HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(bottles);
-        if (remainingItems.isEmpty()) {
+        if (remainingItems.isEmpty())
             return;
-        }
 
         for (ItemStack item : remainingItems.values()) {
             player.getWorld().dropItem(player.getLocation(), item);

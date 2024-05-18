@@ -1,8 +1,8 @@
 package net.earthmc.xpmanager.command.handler;
 
-import net.earthmc.xpmanager.XPManager;
 import net.earthmc.xpmanager.api.XPManagerMessaging;
 import net.earthmc.xpmanager.object.MethodHandler;
+import net.earthmc.xpmanager.util.BottleUtil;
 import net.earthmc.xpmanager.util.CommandUtil;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -43,7 +43,7 @@ public class ToggleMethodHandler extends MethodHandler {
         PersistentDataContainer container = player.getPersistentDataContainer();
 
         boolean shouldThrowStoreBottles = true;
-        NamespacedKey key = new NamespacedKey(XPManager.INSTANCE, "xpmanager-should-throw-store-bottles");
+        NamespacedKey key = BottleUtil.STORE_KEY;
         if (container.has(key)) {
             shouldThrowStoreBottles = container.get(key, PersistentDataType.BYTE) >= 1;
         }

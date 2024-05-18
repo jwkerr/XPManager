@@ -4,17 +4,16 @@ import net.earthmc.xpmanager.command.BottleAdminCommand;
 import net.earthmc.xpmanager.command.BottleCommand;
 import net.earthmc.xpmanager.listener.ExpBottleListener;
 import net.earthmc.xpmanager.listener.ProjectileLaunchListener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class XPManager extends JavaPlugin {
 
-    public static Plugin INSTANCE;
+    private static XPManager instance;
 
     @Override
     public void onEnable() {
-        INSTANCE = this;
+        instance = this;
 
         initCommands();
         initListeners();
@@ -25,6 +24,10 @@ public final class XPManager extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("XPManager disabled");
+    }
+
+    public static XPManager getInstance() {
+        return instance;
     }
 
     private void initCommands() {
