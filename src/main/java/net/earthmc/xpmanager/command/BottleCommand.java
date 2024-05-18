@@ -53,7 +53,7 @@ public class BottleCommand implements TabExecutor {
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.stats"))
                     return true;
 
-                StatsMethodHandler smh = new StatsMethodHandler(player);
+                StatsMethodHandler smh = new StatsMethodHandler(player, args);
                 smh.handleMethod();
                 break;
             case "store":

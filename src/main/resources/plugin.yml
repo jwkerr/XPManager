@@ -38,6 +38,7 @@ permissions:
       xpmanager.command.bottle.get: true
       xpmanager.command.bottle.mend: true
       xpmanager.command.bottle.stats: true
+      xpmanager.command.bottle.stats.*: true
       xpmanager.command.bottle.store: true
       xpmanager.command.bottle.toggle: true
       xpmanager.command.bottle.toggle.*: true
@@ -57,6 +58,14 @@ permissions:
 
   xpmanager.command.bottle.stats:
     description: "Grants permission to use the bottle stats command method"
+    default: true
+
+  xpmanager.command.bottle.stats.*:
+    description: "Grants permission to use all bottle stats methods"
+    default: true
+
+  xpmanager.command.bottle.stats.other:
+    description: "Grants permission to view the stats of another user"
     default: true
 
   xpmanager.command.bottle.store:
