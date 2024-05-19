@@ -46,7 +46,7 @@ public class BottleCommand implements TabExecutor {
                 if (!CommandUtil.hasPermissionOrError(player, "xpmanager.command.bottle.mend"))
                     return true;
 
-                MendMethodHandler mmh = new MendMethodHandler(player);
+                MendMethodHandler mmh = new MendMethodHandler(player, args);
                 mmh.handleMethod();
                 break;
             case "stats":
@@ -95,6 +95,9 @@ public class BottleCommand implements TabExecutor {
             case 2:
                 switch (args[0]) {
                     case "get": return Stream.of("max", "{quantity}")
+                            .filter(s -> s.startsWith(args[1].toLowerCase()))
+                            .toList();
+                    case "mend": return Stream.of("all")
                             .filter(s -> s.startsWith(args[1].toLowerCase()))
                             .toList();
                     case "store": return Stream.of("max", "{amount}")

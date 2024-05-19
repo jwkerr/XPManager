@@ -37,6 +37,7 @@ permissions:
       xpmanager.command.bottle.convert: true
       xpmanager.command.bottle.get: true
       xpmanager.command.bottle.mend: true
+      xpmanager.command.bottle.mend.*: true
       xpmanager.command.bottle.stats: true
       xpmanager.command.bottle.stats.*: true
       xpmanager.command.bottle.store: true
@@ -54,6 +55,14 @@ permissions:
 
   xpmanager.command.bottle.mend:
     description: "Grants permission to use the bottle mend command method"
+    default: true
+
+  xpmanager.command.bottle.mend.*:
+    description: "Grants permission to all bottle mend methods"
+    default: true
+
+  xpmanager.command.bottle.mend.all:
+    description: "Grants permission to mend all items in inventory simultaneously"
     default: true
 
   xpmanager.command.bottle.stats:
