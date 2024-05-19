@@ -71,7 +71,14 @@ public class StoreMethodHandler extends MethodHandler {
         if (quantity == null || quantity < 1)
             quantity = 1;
 
-        int totalXP = amount * quantity;
+        int totalXP;
+        try {
+            totalXP = Math.multiplyExact(amount, quantity);
+        } catch (ArithmeticException e) {
+            XPManagerMessaging.sendErrorMessage(player, "Your input caused an integer overflow and was not accepted");
+            return;
+        }
+
         if (isAdmin) {
             BottleUtil.givePlayerStoreBottleQuantity(player, amount, quantity);
 
@@ -79,7 +86,7 @@ public class StoreMethodHandler extends MethodHandler {
             return;
         }
 
-        if (totalXP > currentXP || totalXP <= 0) { // Catch integer overflows that may occur from setting extremely high quantities
+        if (totalXP > currentXP) {
             XPManagerMessaging.sendErrorMessage(player, "You do not have enough experience");
             return;
         }
