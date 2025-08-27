@@ -1,6 +1,6 @@
 package net.earthmc.xpmanager.util;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import net.earthmc.xpmanager.XPManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -50,8 +50,9 @@ public class BottleUtil {
         if (container.has(STORE_KEY, PersistentDataType.INTEGER))
             return true;
 
-        NBTItem nbti = new NBTItem(item);
-        return nbti.hasTag(BOTTLED_EXP_TAG);
+        return NBT.get(item, nbti -> {
+            return nbti.hasTag(BOTTLED_EXP_TAG);
+        });
     }
 
     /**
@@ -62,12 +63,18 @@ public class BottleUtil {
     public static int getXPQuantityFromStoreBottle(ItemStack bottle) {
         PersistentDataContainer container = bottle.getItemMeta().getPersistentDataContainer();
 
-        if (container.has(STORE_KEY))
-            return container.get(STORE_KEY, PersistentDataType.INTEGER);
+        final Integer storedAmount = container.get(STORE_KEY, PersistentDataType.INTEGER);
+        if (storedAmount != null) {
+            return storedAmount;
+        }
 
-        NBTItem nbti = new NBTItem(bottle);
-        if (nbti.hasTag(BOTTLED_EXP_TAG))
+        final Integer legacyAmount = NBT.get(bottle, nbti -> {
             return nbti.getInteger(BOTTLED_EXP_TAG);
+        });
+
+        if (legacyAmount != null) {
+            return legacyAmount;
+        }
 
         return 0;
     }
