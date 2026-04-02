@@ -50,8 +50,8 @@ public class BottleUtil {
         if (container.has(STORE_KEY, PersistentDataType.INTEGER))
             return true;
 
-        return NBT.get(item, nbti -> {
-            return nbti.hasTag(BOTTLED_EXP_TAG);
+        return NBT.get(item, nbt -> {
+            return nbt.hasTag(BOTTLED_EXP_TAG);
         });
     }
 

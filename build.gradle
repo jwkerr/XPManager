@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "net.earthmc"
-version = "0.4.0"
+version = "0.4.1"
 
 repositories {
     mavenLocal()
@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
-    implementation("de.tr7zw:item-nbt-api:2.15.2")
+    compileOnly "io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT"
+    implementation("de.tr7zw:item-nbt-api:2.15.6")
 }
 
 shadowJar {
@@ -34,7 +34,7 @@ shadowJar {
     archiveFileName = "${project.name}-${project.version}.jar"
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

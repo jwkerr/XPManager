@@ -1,7 +1,7 @@
 name: XPManager
 version: "${version}"
 main: net.earthmc.xpmanager.XPManager
-api-version: "1.19"
+api-version: "1.21"
 prefix: XPManager
 authors: [Fruitloopins]
 description: A bottle plugin that improves upon and maintains compatibility with the bottles from BottledExp
